@@ -1,5 +1,5 @@
 require 'sunspot'
-require 'mongomapper'
+require 'mongo_mapper'
 require 'sunspot/rails'
 
 # == Examples:
