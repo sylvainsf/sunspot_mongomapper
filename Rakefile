@@ -10,7 +10,7 @@ begin
     gem.email = "sylvain.niles@gmail.com"
     gem.homepage = "http://github.com/sylvainsf/sunspot_mongomapper"
     gem.authors = ["sylvainsf"]
-    gem.add_runtime_dependency "mongomapper", ">= 0"
+    gem.add_runtime_dependency "mongo_mapper", ">= 0"
     gem.add_runtime_dependency "sunspot", ">= 1.1.0"
     gem.add_runtime_dependency "sunspot_rails", ">= 1.1.0"
     gem.add_development_dependency "shoulda", ">= 0"
