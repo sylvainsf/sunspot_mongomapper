@@ -14,9 +14,12 @@ end
 Rake::Task["sunspot:reindex"].abandon
 Rake::Task["sunspot:solr:start"].abandon
 
-# override the task that starts on 8982
 
+
+# override the tasks that depends on active record
 namespace :sunspot do
+
+  # override the task that starts on 8982
   namespace :solr do
     desc 'Start the Solr instance'
     task :start => :environment do
@@ -34,11 +37,7 @@ namespace :sunspot do
 
       puts "Successfully started Solr ..."
     end
-end
-
-
-# override the tasks that depends on active record
-namespace :sunspot do
+  end
   desc "Reindex all solr models that are located in your application's models directory. (Batch size ignored)"
   # This task depends on the standard Rails file naming \
   # conventions, in that the file name matches the defined class name. \
