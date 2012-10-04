@@ -30,7 +30,7 @@ namespace :sunspot do
       end
 
       if defined?(Sunspot::Rails::Server)
-        Sunspot::Rails::Server.new.start(:port => 8983)
+        Sunspot::Rails::Server.new(:port => 8983).start
       else
         Sunspot::Solr::Server.new.start
       end
