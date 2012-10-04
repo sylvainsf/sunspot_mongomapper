@@ -1,7 +1,7 @@
 sunspot_mongomapper
 ====
 
-A Sunspot wrapper for MongoMapper
+A Sunspot wrapper for MongoMapper based on the excellent wrapper for Mongoid written by jugyo.
 
 Install
 ----
@@ -13,7 +13,7 @@ Examples
 
     class Post
       include MongoMapper::Document
-      field :title
+      key :title, String
 
       include Sunspot::MongoMapper
       searchable do
@@ -46,6 +46,7 @@ Links
 
 * [sunspot](http://github.com/outoftime/sunspot)
 * [sunspot_rails](http://github.com/outoftime/sunspot/tree/master/sunspot_rails/)
+* [sunspot_mongoid](http://github.com/jugyo/sunspot_mongoid/)
 
 Copyright
 ----
