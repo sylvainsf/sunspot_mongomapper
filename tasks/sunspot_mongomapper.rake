@@ -12,6 +12,30 @@ class Rake::Task
 end
 
 Rake::Task["sunspot:reindex"].abandon
+Rake::Task["sunspot:solr:start"].abandon
+
+# override the task that starts on 8982
+
+namespace :sunspot do
+  namespace :solr do
+    desc 'Start the Solr instance'
+    task :start => :environment do
+      case RUBY_PLATFORM
+      when /w(in)?32$/, /java$/
+        abort("This command is not supported on #{RUBY_PLATFORM}. " +
+              "Use rake sunspot:solr:run to run Solr in the foreground.")
+      end
+
+      if defined?(Sunspot::Rails::Server)
+        Sunspot::Rails::Server.new.start(:port => 8983)
+      else
+        Sunspot::Solr::Server.new.start
+      end
+
+      puts "Successfully started Solr ..."
+    end
+end
+
 
 # override the tasks that depends on active record
 namespace :sunspot do
