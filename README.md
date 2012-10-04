@@ -3,6 +3,8 @@ sunspot_mongomapper
 
 A Sunspot wrapper for MongoMapper based on the excellent wrapper for Mongoid written by jugyo.
 
+Special thanks to @peterlind for submitting some crucial fixes to Sunspot Mongoid that I was able to adapt for Sunspot MongoMapper.
+
 Install
 ----
 
