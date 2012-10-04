@@ -18,26 +18,6 @@ Rake::Task["sunspot:solr:start"].abandon
 
 # override the tasks that depends on active record
 namespace :sunspot do
-
-  # override the task that starts on 8982
-  namespace :solr do
-    desc 'Start the Solr instance'
-    task :start => :environment do
-      case RUBY_PLATFORM
-      when /w(in)?32$/, /java$/
-        abort("This command is not supported on #{RUBY_PLATFORM}. " +
-              "Use rake sunspot:solr:run to run Solr in the foreground.")
-      end
-
-      if defined?(Sunspot::Rails::Server)
-        Sunspot::Rails::Server.new(:port => 8983).start
-      else
-        Sunspot::Solr::Server.new.start
-      end
-
-      puts "Successfully started Solr ..."
-    end
-  end
   desc "Reindex all solr models that are located in your application's models directory. (Batch size ignored)"
   # This task depends on the standard Rails file naming \
   # conventions, in that the file name matches the defined class name. \
