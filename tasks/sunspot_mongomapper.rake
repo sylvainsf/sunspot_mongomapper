@@ -12,9 +12,6 @@ class Rake::Task
 end
 
 Rake::Task["sunspot:reindex"].abandon
-Rake::Task["sunspot:solr:start"].abandon
-
-
 
 # override the tasks that depends on active record
 namespace :sunspot do
