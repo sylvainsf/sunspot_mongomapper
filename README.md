@@ -10,6 +10,18 @@ Install
 
     gem install sunspot_mongomapper
 
+The sunspot gem currently has an issue with loading the config/sunspot.yml, for now you can work around it by creating an initializer.
+    config/initializers/sunspot.rb
+
+    require 'sunspot'
+    require 'mongo_mapper'
+    require 'sunspot/rails'
+    require 'yaml'
+
+    # Override the sunspot url since the yml doesn't work.
+    sunspot_config = YAML.load_file("#{Rails.root}/config/sunspot.yml")
+    Sunspot.config.solr.url = "http://#{sunspot_config[Rails.env]["solr"]["hostname"]}:#{sunspot_config[Rails.env]["solr"]["port"]}/solr"
+
 Examples
 ----
 
