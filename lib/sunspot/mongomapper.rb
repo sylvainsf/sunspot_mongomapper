@@ -17,11 +17,6 @@ require 'yaml'
 # end
 #
 
-
-# Override the sunspot url since the yml doesn't work.
-sunspot_config = YAML.load_file("#{Rails.root}/config/sunspot.yml")
-Sunspot.config.solr.url = "http://#{sunspot_config[Rails.env]["solr"]["hostname"]}:#{sunspot_config[Rails.env]["solr"]["port"]}/solr"
-
 module Sunspot
   module MongoMapper
     def self.included(base)
