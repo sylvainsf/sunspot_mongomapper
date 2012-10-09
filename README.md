@@ -42,6 +42,8 @@ Then you just need a sunspot.yml to configure your environments like so:
         port: 8981
         log_level: WARNING
 
+Finally you'll want to read up on Solr configuration, particularly with regards to autoCommit in your solrconfig.xml and dynamicFields in your schema.xml.
+
 Examples
 ----
 
@@ -81,6 +83,8 @@ Links
 * [sunspot](http://github.com/outoftime/sunspot)
 * [sunspot_rails](http://github.com/outoftime/sunspot/tree/master/sunspot_rails/)
 * [sunspot_mongoid](http://github.com/jugyo/sunspot_mongoid/)
+* [solr config xml](http://wiki.apache.org/solr/SolrConfigXml)
+* [solr schema xml](http://wiki.apache.org/solr/SchemaXml)
 
 Copyright
 ----
