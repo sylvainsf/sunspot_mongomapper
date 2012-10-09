@@ -1,19 +1,26 @@
 require 'sunspot'
 require 'mongo_mapper'
 require 'sunspot/rails'
+require 'yaml'
+
 
 # == Examples:
 #
 # class Post
 #   include MongoMapper::Document
 #   field :title
-# 
+#
 #   include Sunspot::MongoMapper
 #   searchable do
 #     text :title
 #   end
 # end
 #
+
+
+# Override the sunspot url since the yml doesn't work.
+sunspot_config = YAML.load_file("#{Rails.root}/config/sunspot.yml")
+Sunspot.config.solr.url = "http://#{sunspot_config[Rails.env]["solr"]["hostname"]}:#{sunspot_config[Rails.env]["solr"]["port"]}/solr"
 
 module Sunspot
   module MongoMapper
@@ -54,17 +61,17 @@ module Sunspot
 
     class DataAccessor < Sunspot::Adapters::DataAccessor
       def load(id)
-        criteria(id).first
+        find(id).first
       end
 
       def load_all(ids)
-        criteria(ids)
+        find(ids)
       end
 
       private
 
-      def criteria(id)
-        @clazz.criteria.find(id)
+      def find(id)
+        @clazz.find(id)
       end
     end
 
