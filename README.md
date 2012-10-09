@@ -22,6 +22,26 @@ The sunspot gem currently has an issue with loading the config/sunspot.yml, for 
     sunspot_config = YAML.load_file("#{Rails.root}/config/sunspot.yml")
     Sunspot.config.solr.url = "http://#{sunspot_config[Rails.env]["solr"]["hostname"]}:#{sunspot_config[Rails.env]["solr"]["port"]}/solr"
 
+Then you just need a sunspot.yml to configure your environments like so:
+
+    production:
+      solr:
+        hostname: localhost
+        port: 8080
+        log_level: WARNING
+        # read_timeout: 2
+        # open_timeout: 0.5
+    development:
+      solr:
+        hostname: localhost
+        port: 8983
+        log_level: INFO
+    test:
+      solr:
+        hostname: localhost
+        port: 8981
+        log_level: WARNING
+
 Examples
 ----
 
