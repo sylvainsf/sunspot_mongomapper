@@ -76,6 +76,7 @@ module Sunspot
 
     def _update_index
       Sunspot.index! self
+      Sunspot.commit_if_dirty
     end
   end
 end
