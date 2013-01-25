@@ -26,10 +26,7 @@ module Sunspot
         Sunspot::Adapters::DataAccessor.register(DataAccessor, base)
         Sunspot::Adapters::InstanceAdapter.register(InstanceAdapter, base)
         after_destroy :_remove_index
-        begin
         after_save :_update_index
-        rescue
-        end
       end
     end
 
