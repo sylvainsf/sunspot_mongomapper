@@ -25,8 +25,8 @@ module Sunspot
         extend Sunspot::MongoMapper::ActsAsMethods
         Sunspot::Adapters::DataAccessor.register(DataAccessor, base)
         Sunspot::Adapters::InstanceAdapter.register(InstanceAdapter, base)
-        # after_destroy :_remove_index
-        # after_save :_update_index
+        after_destroy :_remove_index
+        after_save :_update_index
       end
     end
 
