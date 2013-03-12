@@ -27,6 +27,16 @@ module Sunspot
         Sunspot::Adapters::InstanceAdapter.register(InstanceAdapter, base)
         after_destroy :_remove_index
         after_save :_update_index
+
+        atomic_methods = %w(increment, decrement, set, unset, push, push_all, add_to_set, push_uniq, pull, pull_all, pop)
+        atomic_methods.each do |m|
+          def m
+            super
+            self.reload
+            self.index
+          end
+        end
+
       end
     end
 
