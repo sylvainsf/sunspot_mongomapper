@@ -26,8 +26,7 @@ module Sunspot
       define_method(m) do |*args|
         super *args
         puts "overriding operation"
-        self.reload
-        self.index
+        self.index_later
       end
     end
 
