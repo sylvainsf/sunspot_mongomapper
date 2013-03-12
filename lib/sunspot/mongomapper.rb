@@ -21,8 +21,8 @@ module Sunspot
   module MongoMapper
     atomic_methods = %w(increment decrement set unset push push_all add_to_set push_uniq pull pull_all pop)
     atomic_methods.each do |m|
-      define_method(m) do
-        super
+      define_method(m) do |*args|
+        super *args
         puts "overriding operation"
         self.reload
         self.index
