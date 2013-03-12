@@ -19,6 +19,15 @@ require 'yaml'
 
 module Sunspot
   module MongoMapper
+    atomic_methods = %w(increment decrement set unset push push_all add_to_set push_uniq pull pull_all pop)
+    atomic_methods.each do |m|
+      define_method(m) do
+        super
+        puts "overriding operation"
+        self.reload
+        self.index
+      end
+    end
     def self.included(base)
       base.class_eval do
         extend Sunspot::Rails::Searchable::ActsAsMethods
@@ -28,14 +37,6 @@ module Sunspot
         after_destroy :_remove_index
         after_save :_update_index
 
-        atomic_methods = %w(increment, decrement, set, unset, push, push_all, add_to_set, push_uniq, pull, pull_all, pop)
-        atomic_methods.each do |m|
-          def m
-            super
-            self.reload
-            self.index
-          end
-        end
 
       end
     end
