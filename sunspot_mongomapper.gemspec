@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
     "VERSION",
     "examples/example.rb",
     "init.rb",
+    "lib/reindex.rb",
     "lib/sunspot/mongomapper.rb",
     "lib/sunspot/mongomapper/railtie.rb",
     "lib/sunspot_mongomapper.rb",
@@ -52,6 +53,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<mongo_mapper>, [">= 0"])
       s.add_runtime_dependency(%q<sunspot>, [">= 1.1.0"])
       s.add_runtime_dependency(%q<sunspot_rails>, [">= 1.1.0"])
+      s.add_runtime_dependency(%q<resque>, [">= 0"])
       s.add_development_dependency(%q<shoulda>, [">= 0"])
       s.add_development_dependency(%q<rr>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, [">= 0"])

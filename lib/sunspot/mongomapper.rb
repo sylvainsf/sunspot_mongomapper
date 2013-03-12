@@ -2,6 +2,8 @@ require 'sunspot'
 require 'mongo_mapper'
 require 'sunspot/rails'
 require 'yaml'
+require 'reindex'
+require 'resque'
 
 
 # == Examples:
@@ -28,6 +30,11 @@ module Sunspot
         self.index
       end
     end
+
+    def index_later
+      Resque.enqueue(Reindex, self.id, self.class.to_s)
+    end
+
     def self.included(base)
       base.class_eval do
         extend Sunspot::Rails::Searchable::ActsAsMethods
