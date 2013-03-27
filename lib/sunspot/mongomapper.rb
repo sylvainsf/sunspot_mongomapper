@@ -25,7 +25,6 @@ module Sunspot
     atomic_methods.each do |m|
       define_method(m) do |*args|
         super *args
-        puts "overriding operation"
         self.index_later
       end
     end
