@@ -1,5 +1,5 @@
 class Reindex
-  @queue = :reindex
+  @queue = :z_reindex
 
   def self.perform id, klazz
     klazz.constantize.find(id).index
