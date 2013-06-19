@@ -80,9 +80,7 @@ module Sunspot
 
       def solr_clean_index_orphans(opts={})
         solr_index_orphans(opts).each do |id|
-          new do |fake_instance|
-            fake_instance.id = id
-          end.solr_remove_from_index
+          new(id: BSON::ObjectId(id)).solr_remove_from_index
         end
       end
     end
