@@ -64,16 +64,18 @@ module Sunspot
 
       def solr_index_orphans(opts={})
         batch_size = opts[:batch_size] || Sunspot.config.indexing.default_batch_size
-
-        solr_page = 0
-        solr_ids = []
-        while (solr_page = solr_page.next)
-          ids = solr_search_ids { paginate(:page => solr_page, :per_page => 1000) }.to_a
+        
+        page = 0
+        orphaned_ids = []
+        while (page = page.next)
+          ids = search { paginate(:page => page, :per_page => batch_size) }.hits.collect { |h| h.primary_key }
           break if ids.empty?
-          solr_ids.concat ids
+          ids.each do |id|
+            orphaned_ids << id unless find(id)
+          end
         end
 
-        return solr_ids - self.all.collect { |c| c.id.to_s }
+        return orphaned_ids
       end
 
       def solr_clean_index_orphans(opts={})
