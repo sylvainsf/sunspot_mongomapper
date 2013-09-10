@@ -1,3 +1,5 @@
+require 'reindex'
+
 class Reindex
   include Sidekiq::Worker
   
