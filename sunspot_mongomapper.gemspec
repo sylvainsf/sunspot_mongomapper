@@ -36,7 +36,7 @@ Gem::Specification.new do |s|
     "test/helper.rb",
     "test/test_sunspot_mongomapper.rb"
   ]
-  s.homepage = "http://github.com/sylvainsf/sunspot_mongomapper"
+  s.homepage = "http://github.com/JKring/sunspot_mongomapper"
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.24"
   s.summary = "A Sunspot wrapper for MongoMapper."
@@ -67,6 +67,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<mongo_mapper>, [">= 0"])
       s.add_dependency(%q<sunspot>, [">= 1.1.0"])
       s.add_dependency(%q<sunspot_rails>, [">= 1.1.0"])
+      s.add_dependency(%q<sidekiq>, [">= 0"])
       s.add_dependency(%q<shoulda>, [">= 0"])
       s.add_dependency(%q<rr>, [">= 0"])
       s.add_dependency(%q<jeweler>, [">= 0"])
@@ -81,6 +82,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<mongo_mapper>, [">= 0"])
     s.add_dependency(%q<sunspot>, [">= 1.1.0"])
     s.add_dependency(%q<sunspot_rails>, [">= 1.1.0"])
+    s.add_dependency(%q<sidekiq>, [">= 0"])
     s.add_dependency(%q<shoulda>, [">= 0"])
     s.add_dependency(%q<rr>, [">= 0"])
     s.add_dependency(%q<jeweler>, [">= 0"])
