@@ -2,8 +2,7 @@ require 'sunspot'
 require 'mongo_mapper'
 require 'sunspot/rails'
 require 'yaml'
-require 'reindex'
-require 'resque'
+require 'sidekiq'
 
 
 # == Examples:
@@ -30,7 +29,7 @@ module Sunspot
     end
 
     def index_later
-      Resque.enqueue(Reindex, self.id, self.class.to_s)
+      Reindex.perform_async(self.id, self.class.to_s)
     end
 
     def self.included(base)

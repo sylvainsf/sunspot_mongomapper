@@ -1,7 +1,7 @@
 class Reindex
-  @queue = :z_reindex
-
-  def self.perform id, klazz
+  include Sidekiq::Worker
+  
+  def perform id, klazz
     klazz.constantize.find(id).index
   end
 
