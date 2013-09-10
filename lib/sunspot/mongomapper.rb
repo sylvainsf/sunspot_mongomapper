@@ -2,6 +2,7 @@ require 'sunspot'
 require 'mongo_mapper'
 require 'sunspot/rails'
 require 'yaml'
+require 'reindex'
 require 'sidekiq'
 
 
