@@ -29,6 +29,12 @@ class TestSunspotMongoMapper < Test::Unit::TestCase
       assert Foo.sunspot_options == {:include => []}
       assert Bar.sunspot_options == {:auto_index=>false, :auto_remove=>false, :include=>[]}
     end
+    
+    should 'not allow re-enqueue of duplicate' do
+      f = Foo.new
+      assert f.index_later
+      assert_equal f.index_later,nil
+    end
 
     should 'be called Sunspot.setup when call Foo.searchable' do
       mock(Sunspot).setup(Foo)
