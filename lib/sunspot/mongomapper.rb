@@ -5,7 +5,6 @@ require 'yaml'
 require 'reindex'
 require 'sidekiq'
 
-
 # == Examples:
 #
 # class Post
@@ -19,6 +18,8 @@ require 'sidekiq'
 # end
 #
 
+IS_IN_TEST = Rails.env == "test"
+
 module Sunspot
   module MongoMapper
     atomic_methods = %w(increment decrement set unset push push_all add_to_set push_uniq pull pull_all pop)
@@ -30,7 +31,7 @@ module Sunspot
     end
 
     def index_later
-      if Rails.env == 'test'
+      if IS_IN_TEST
         Reindex.new.perform(self.id, self.class.to_s)
       else
         Reindex.perform_async(self.id, self.class.to_s)
