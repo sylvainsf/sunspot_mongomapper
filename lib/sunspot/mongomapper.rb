@@ -40,7 +40,7 @@ module Sunspot
         Sunspot::Adapters::DataAccessor.register(DataAccessor, base)
         Sunspot::Adapters::InstanceAdapter.register(InstanceAdapter, base)
         after_destroy :_remove_index
-        after_save :_update_index
+        after_save :index_later
 
 
       end
@@ -110,11 +110,6 @@ module Sunspot
 
     def _remove_index
       Sunspot.remove! self
-    end
-
-    def _update_index
-      Sunspot.index! self
-      Sunspot.commit_if_dirty
     end
   end
 end

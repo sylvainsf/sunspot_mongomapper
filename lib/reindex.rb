@@ -9,5 +9,6 @@ class Reindex
 
   def perform id, klazz
     klazz.constantize.find(id).index
+    Sunspot.commit_if_dirty
   end
 end
