@@ -30,7 +30,11 @@ module Sunspot
     end
 
     def index_later
-      Reindex.perform_async(self.id, self.class.to_s)
+      if Rails.env == 'test'
+        Reindex.new.perform(self.id, self.class.to_s)
+      else
+        Reindex.perform_async(self.id, self.class.to_s)
+      end
     end
 
     def self.included(base)
