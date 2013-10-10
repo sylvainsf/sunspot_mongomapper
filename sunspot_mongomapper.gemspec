@@ -58,6 +58,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rr>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, [">= 0"])
       s.add_development_dependency(%q<rake>, [">= 0"])
+      s.add_development_dependency(%q<rails>, [">= 0"])
     else
       s.add_dependency(%q<sunspot_mongomapper>, [">= 0"])
       s.add_dependency(%q<shoulda>, [">= 0"])
@@ -72,6 +73,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<rr>, [">= 0"])
       s.add_dependency(%q<jeweler>, [">= 0"])
       s.add_dependency(%q<rake>, [">= 0"])
+      s.add_dependency(%q<rails>, [">= 0"])
     end
   else
     s.add_dependency(%q<sunspot_mongomapper>, [">= 0"])
@@ -87,6 +89,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<rr>, [">= 0"])
     s.add_dependency(%q<jeweler>, [">= 0"])
     s.add_dependency(%q<rake>, [">= 0"])
+    s.add_dependency(%q<rails>, [">= 0"])    
   end
 end
 
