@@ -8,7 +8,11 @@ class Reindex
   })
 
   def perform id, klazz
-    klazz.constantize.find(id).index
+    index_synchronous klazz.constantize.find(id)
+  end
+  
+  def index_synchronous resource
+    resource.index
     Sunspot.commit_if_dirty
   end
 end

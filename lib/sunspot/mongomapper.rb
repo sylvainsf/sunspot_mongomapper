@@ -32,7 +32,7 @@ module Sunspot
 
     def index_later
       if IS_IN_TEST
-        Reindex.new.perform(self.id, self.class.to_s)
+        Reindex.new.index_synchronous(self)
       else
         Reindex.perform_async(self.id, self.class.to_s)
       end
@@ -46,8 +46,6 @@ module Sunspot
         Sunspot::Adapters::InstanceAdapter.register(InstanceAdapter, base)
         after_destroy :_remove_index
         after_save :index_later
-
-
       end
     end
 
