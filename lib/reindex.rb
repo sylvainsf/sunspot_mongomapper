@@ -8,7 +8,8 @@ class Reindex
   })
 
   def perform id, klazz
-    index_synchronous klazz.constantize.find(id)
+    instance = klazz.constantize.find(id)
+    index_synchronous(instance) unless instance.nil?
   end
   
   def index_synchronous resource
