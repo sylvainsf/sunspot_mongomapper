@@ -14,5 +14,6 @@ class Reindex
   
   def index_synchronous resource
     resource.index
+    Sunspot.commit_if_dirty if Rails.env == 'test'
   end
 end
