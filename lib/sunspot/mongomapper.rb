@@ -3,8 +3,7 @@ require 'mongo_mapper'
 require 'sunspot/rails'
 require 'yaml'
 require 'reindex'
-require 'resque'
-
+require 'sidekiq'
 
 # == Examples:
 #
@@ -19,6 +18,8 @@ require 'resque'
 # end
 #
 
+IS_IN_TEST = Rails.env.test?
+
 module Sunspot
   module MongoMapper
     atomic_methods = %w(increment decrement set unset push push_all add_to_set push_uniq pull pull_all pop)
@@ -30,7 +31,12 @@ module Sunspot
     end
 
     def index_later
-      Resque.enqueue(Reindex, self.id, self.class.to_s)
+      if IS_IN_TEST
+        Reindex.new.index_synchronous(self)
+      else
+        Reindex.perform_async(self.id, self.class.to_s)
+        Reindex.perform_in(30.seconds, self.id, self.class.to_s)
+      end
     end
 
     def self.included(base)
@@ -40,9 +46,7 @@ module Sunspot
         Sunspot::Adapters::DataAccessor.register(DataAccessor, base)
         Sunspot::Adapters::InstanceAdapter.register(InstanceAdapter, base)
         after_destroy :_remove_index
-        after_save :_update_index
-
-
+        after_save :index_later
       end
     end
 
@@ -64,23 +68,23 @@ module Sunspot
 
       def solr_index_orphans(opts={})
         batch_size = opts[:batch_size] || Sunspot.config.indexing.default_batch_size
-
-        solr_page = 0
-        solr_ids = []
-        while (solr_page = solr_page.next)
-          ids = solr_search_ids { paginate(:page => solr_page, :per_page => 1000) }.to_a
+        
+        page = 0
+        orphaned_ids = []
+        while (page = page.next)
+          ids = search { paginate(:page => page, :per_page => batch_size) }.hits.collect { |h| h.primary_key }
           break if ids.empty?
-          solr_ids.concat ids
+          ids.each do |id|
+            orphaned_ids << id unless find(id)
+          end
         end
 
-        return solr_ids - self.all.collect { |c| c.id.to_s }
+        return orphaned_ids
       end
 
       def solr_clean_index_orphans(opts={})
         solr_index_orphans(opts).each do |id|
-          new do |fake_instance|
-            fake_instance.id = id
-          end.solr_remove_from_index
+          new(id: BSON::ObjectId(id)).solr_remove_from_index
         end
       end
     end
@@ -110,11 +114,6 @@ module Sunspot
 
     def _remove_index
       Sunspot.remove! self
-    end
-
-    def _update_index
-      Sunspot.index! self
-      Sunspot.commit_if_dirty
     end
   end
 end

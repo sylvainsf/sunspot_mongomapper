@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "sunspot_mongomapper"
-  s.version = "0.0.7"
+  s.version = "0.0.13"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["sylvainsf"]
@@ -36,7 +36,7 @@ Gem::Specification.new do |s|
     "test/helper.rb",
     "test/test_sunspot_mongomapper.rb"
   ]
-  s.homepage = "http://github.com/sylvainsf/sunspot_mongomapper"
+  s.homepage = "http://github.com/JKring/sunspot_mongomapper"
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.24"
   s.summary = "A Sunspot wrapper for MongoMapper."
@@ -53,11 +53,12 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<mongo_mapper>, [">= 0"])
       s.add_runtime_dependency(%q<sunspot>, [">= 1.1.0"])
       s.add_runtime_dependency(%q<sunspot_rails>, [">= 1.1.0"])
-      s.add_runtime_dependency(%q<resque>, [">= 0"])
+      s.add_runtime_dependency(%q<sidekiq>, [">= 0"])
       s.add_development_dependency(%q<shoulda>, [">= 0"])
       s.add_development_dependency(%q<rr>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, [">= 0"])
       s.add_development_dependency(%q<rake>, [">= 0"])
+      s.add_development_dependency(%q<rails>, [">= 0"])
     else
       s.add_dependency(%q<sunspot_mongomapper>, [">= 0"])
       s.add_dependency(%q<shoulda>, [">= 0"])
@@ -67,10 +68,12 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<mongo_mapper>, [">= 0"])
       s.add_dependency(%q<sunspot>, [">= 1.1.0"])
       s.add_dependency(%q<sunspot_rails>, [">= 1.1.0"])
+      s.add_dependency(%q<sidekiq>, [">= 0"])
       s.add_dependency(%q<shoulda>, [">= 0"])
       s.add_dependency(%q<rr>, [">= 0"])
       s.add_dependency(%q<jeweler>, [">= 0"])
       s.add_dependency(%q<rake>, [">= 0"])
+      s.add_dependency(%q<rails>, [">= 0"])
     end
   else
     s.add_dependency(%q<sunspot_mongomapper>, [">= 0"])
@@ -81,10 +84,12 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<mongo_mapper>, [">= 0"])
     s.add_dependency(%q<sunspot>, [">= 1.1.0"])
     s.add_dependency(%q<sunspot_rails>, [">= 1.1.0"])
+    s.add_dependency(%q<sidekiq>, [">= 0"])
     s.add_dependency(%q<shoulda>, [">= 0"])
     s.add_dependency(%q<rr>, [">= 0"])
     s.add_dependency(%q<jeweler>, [">= 0"])
     s.add_dependency(%q<rake>, [">= 0"])
+    s.add_dependency(%q<rails>, [">= 0"])    
   end
 end
 

@@ -1,8 +1,19 @@
+require 'sidekiq'
+
 class Reindex
-  @queue = :z_reindex
+  include Sidekiq::Worker
+  
+  sidekiq_options({
+    queue: :reindex,
+  })
 
-  def self.perform id, klazz
-    klazz.constantize.find(id).index
+  def perform id, klazz
+    instance = klazz.constantize.find(id)
+    index_synchronous(instance) unless instance.nil?
   end
-
+  
+  def index_synchronous resource
+    resource.index
+    Sunspot.commit_if_dirty unless Rails.env.production?
+  end
 end
