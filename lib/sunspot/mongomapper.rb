@@ -18,8 +18,6 @@ require 'sidekiq'
 # end
 #
 
-IS_IN_TEST = Rails.env == "test"
-
 module Sunspot
   module MongoMapper
     atomic_methods = %w(increment decrement set unset push push_all add_to_set push_uniq pull pull_all pop)
@@ -31,10 +29,11 @@ module Sunspot
     end
 
     def index_later
-      if IS_IN_TEST
+      if Rails.env.test?
         Reindex.new.index_synchronous(self)
       else
         Reindex.perform_async(self.id, self.class.to_s)
+        Reindex.perform_in(30.seconds, self.id, self.class.to_s)
       end
     end
 
